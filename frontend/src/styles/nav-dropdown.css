@@ -1,0 +1,129 @@
+/* ============================================================
+   nav-dropdown.css — Dropdown menu cho nav Danh mục
+   Click để toggle, đóng khi click ngoài
+   ============================================================ */
+
+.nav-dropdown {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Nút trigger */
+.nav-dropdown__trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-on-surface-variant);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 0 4px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+    line-height: 1;
+    user-select: none;
+}
+
+.nav-dropdown.open .nav-dropdown__trigger {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+
+/* Mũi tên xoay khi mở */
+.nav-dropdown__arrow {
+    transition: transform 0.2s ease;
+}
+.nav-dropdown.open .nav-dropdown__arrow {
+    transform: rotate(180deg);
+}
+
+/* Menu panel — ẩn mặc định, hiện khi có class .open */
+.nav-dropdown__menu {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    min-width: 220px;
+    background: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0,0,0,0.06);
+    padding: 8px 0;
+    z-index: 200;
+    /* Trạng thái đóng */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+/* Tam giác mũi tên chỉ lên */
+.nav-dropdown__menu::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 6px;
+    background: var(--color-surface-container-lowest);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+/* Khi .open: hiện menu — chỉ dùng class, không dùng :hover */
+.nav-dropdown.open .nav-dropdown__menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Header label */
+.nav-dropdown__header {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-outline);
+    padding: 4px 16px 8px;
+    border-bottom: 1px solid var(--color-outline-variant);
+    margin-bottom: 4px;
+}
+
+/* Từng mục item */
+.nav-dropdown__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-on-surface);
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+}
+
+.nav-dropdown__item:hover {
+    background: var(--color-surface-container-low);
+    color: var(--color-primary);
+}
+
+.nav-dropdown__icon {
+    font-size: 16px;
+    width: 22px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* Overlay trong suốt bắt click ngoài (dùng JS, không cần CSS riêng) */
+
+/* Responsive: ẩn trên mobile */
+@media (max-width: 1023px) {
+    .nav-dropdown { display: none; }
+}
